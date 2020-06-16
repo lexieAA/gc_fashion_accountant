@@ -28,13 +28,14 @@ public class AccountantController {
 				ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("accountant/reports/taxes")
-	public ResponseEntity<Object> getTaxesReport() {
-		return ResponseEntity.notFound().build();
-	}
-	
 	@GetMapping("accountant/reports/sales")
 	public ResponseEntity<Object> getSalesReport() {
+		return new ResponseEntity<Object>(acctService.getSalesReport(), HttpStatus.OK);
+		//return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("accountant/reports/taxes")
+	public ResponseEntity<Object> getTaxReport() {
 		return ResponseEntity.notFound().build();
 	}
 }
