@@ -16,26 +16,30 @@ import com.smoothstack.gcfashion.service.AccountantService;
 @RestController
 @RequestMapping("/gcfashions")
 public class AccountantController {
-	
+
 	@Autowired
-	AccountantService acctService;	
-	
+	AccountantService acctService;
+
 	@GetMapping("/accountant")
-	public ResponseEntity<List<User>> findAllManagers() {		
+	public ResponseEntity<List<User>> findAllManagers() {
 		List<User> managers = acctService.findAllManagers();
-		return managers != null && managers.size() > 0 ?
-				new ResponseEntity<List<User>>(managers, HttpStatus.OK) :
-				ResponseEntity.notFound().build();
+		return managers != null && managers.size() > 0 ? new ResponseEntity<List<User>>(managers, HttpStatus.OK)
+				: ResponseEntity.notFound().build();
 	}
-	
-	@GetMapping("accountant/reports/sales")
+
+	@GetMapping("/accountant/{userId}")
+	public ResponseEntity<User> findManagerById(@PathVariable long userId) {
+		User manager = acctService.findManagerById(userId);
+		return manager != null ? new ResponseEntity<User>(manager, HttpStatus.OK) : ResponseEntity.notFound().build();
+	}
+
+	@GetMapping("accountant/reports/salesByStore")
 	public ResponseEntity<Object> getSalesReport() {
 		return new ResponseEntity<Object>(acctService.getSalesReport(), HttpStatus.OK);
-		//return ResponseEntity.notFound().build();
 	}
-	
-	@GetMapping("accountant/reports/taxes")
+
+	@GetMapping("accountant/reports/taxesByStore")
 	public ResponseEntity<Object> getTaxReport() {
-		return ResponseEntity.notFound().build();
+		return new ResponseEntity<Object>(acctService.getTaxReport(), HttpStatus.OK);
 	}
 }
