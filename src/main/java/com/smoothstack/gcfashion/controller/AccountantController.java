@@ -33,12 +33,12 @@ public class AccountantController {
 		return manager != null ? new ResponseEntity<User>(manager, HttpStatus.OK) : ResponseEntity.notFound().build();
 	}
 
-	@GetMapping("accountant/reports/salesByStore")
+	@GetMapping("accountant/reports/sales")
 	public ResponseEntity<Object> getSalesReport() {
 		return new ResponseEntity<Object>(acctService.getSalesReport(), HttpStatus.OK);
 	}
 
-	@GetMapping("accountant/reports/taxesByStore")
+	@GetMapping("accountant/reports/taxes")
 	public ResponseEntity<Object> getTaxReport() {
 		return new ResponseEntity<Object>(acctService.getTaxReport(), HttpStatus.OK);
 	}

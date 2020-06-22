@@ -12,9 +12,10 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserDAO extends JpaRepository<User, Long>{
 	
 	@Query(value = "select s.store_name, SUM(t.total) from store s left join transaction t on s.store_id = t.store_id group by store_name", nativeQuery = true)
-	List<Object> getSalesReport();
+	List<Object[]> getSalesReport();
 	
 	@Query(value = "select s.store_name, SUM(t.tax) from store s left join transaction t on s.store_id = t.store_id group by store_name", nativeQuery = true)
-	List<Object> getTaxReport();
+	List<Object[]> getTaxReport();
+	
 
 }

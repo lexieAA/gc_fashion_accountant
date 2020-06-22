@@ -27,16 +27,16 @@ class GcFashionApplicationTests {
 	@InjectMocks
 	AccountantService acctService;
 
-	@Test
-	public void testGetInvalidUser() {
-		
-		Optional<User> optVal = Optional.empty();
-		
-		when(uDAO.findById(-1L)).thenReturn(optVal);
-		assertNull(acctService.findManagerById(-1L));
-
-	}
-	
+//	@Test
+//	public void testGetInvalidUser() {
+//		
+//		Optional<User> optVal = Optional.empty();
+//		
+//		when(uDAO.findById(-1L)).thenReturn(optVal);
+//		assertNull(acctService.findManagerById(-1L));
+//
+//	}
+//	
 	@Test
 	public void testGetValidUser() {
 		User user = new User();
