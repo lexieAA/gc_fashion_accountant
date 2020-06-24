@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class AccountantController {
 	@Autowired
 	AccountantService acctService;
 
+	@CrossOrigin
 	@GetMapping("/accountant")
 	public ResponseEntity<List<User>> findAllManagers() {
 		List<User> managers = acctService.findAllManagers();
@@ -27,17 +29,20 @@ public class AccountantController {
 				: ResponseEntity.notFound().build();
 	}
 
+	@CrossOrigin
 	@GetMapping("/accountant/{userId}")
 	public ResponseEntity<User> findManagerById(@PathVariable long userId) {
 		User manager = acctService.findManagerById(userId);
 		return manager != null ? new ResponseEntity<User>(manager, HttpStatus.OK) : ResponseEntity.notFound().build();
 	}
 
+	@CrossOrigin
 	@GetMapping("accountant/reports/sales")
 	public ResponseEntity<Object> getSalesReport() {
 		return new ResponseEntity<Object>(acctService.getSalesReport(), HttpStatus.OK);
 	}
 
+	@CrossOrigin
 	@GetMapping("accountant/reports/taxes")
 	public ResponseEntity<Object> getTaxReport() {
 		return new ResponseEntity<Object>(acctService.getTaxReport(), HttpStatus.OK);
