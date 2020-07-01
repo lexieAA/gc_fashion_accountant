@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smoothstack.gcfashion.entity.Report;
 import com.smoothstack.gcfashion.entity.User;
 import com.smoothstack.gcfashion.service.AccountantService;
 
@@ -38,13 +39,31 @@ public class AccountantController {
 
 	@CrossOrigin
 	@GetMapping("accountant/reports/sales")
-	public ResponseEntity<Object> getSalesReport() {
-		return new ResponseEntity<Object>(acctService.getSalesReport(), HttpStatus.OK);
+	public ResponseEntity<Report> getSalesReport() {
+		return new ResponseEntity<Report>(acctService.getSalesReport(), HttpStatus.OK);
 	}
 
 	@CrossOrigin
 	@GetMapping("accountant/reports/taxes")
-	public ResponseEntity<Object> getTaxReport() {
-		return new ResponseEntity<Object>(acctService.getTaxReport(), HttpStatus.OK);
+	public ResponseEntity<Report> getTaxReport() {
+		return new ResponseEntity<Report>(acctService.getTaxReport(), HttpStatus.OK);
+	}
+	
+	@CrossOrigin
+	@GetMapping("accountant/reports/salesbycat")
+	public ResponseEntity<Report> getSalesByCat() {
+		return new ResponseEntity<Report>(acctService.getSalesByCat(), HttpStatus.OK);
+	}
+	
+	@CrossOrigin
+	@GetMapping("accountant/reports/totalsales")
+	public ResponseEntity<Report> getTotalSales() {
+		return new ResponseEntity<Report>(acctService.getTotalSales(), HttpStatus.OK);
+	}
+	
+	@CrossOrigin
+	@GetMapping("accountant/reports/totaltaxes")
+	public ResponseEntity<Report> getTotalTaxes() {
+		return new ResponseEntity<Report>(acctService.getTotalTaxes(), HttpStatus.OK);
 	}
 }
