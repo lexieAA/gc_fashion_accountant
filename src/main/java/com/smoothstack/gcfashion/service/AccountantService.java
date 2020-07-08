@@ -48,4 +48,16 @@ public class AccountantService {
 	public Report getTotalTaxes() {
 		return d.getFakeTotalTaxes();		
 	}
+	
+	public Report getAvgSales() {
+		return d.getFakeSalesPerDay();
+	}
+	
+	public Report getAvgSalesTrans() {
+		return d.getFakeSalesPerTransaction();
+	}
+	
+	public Report getVolByLoc() {
+		return d.getFakeVolByLoc();
+	}
 }

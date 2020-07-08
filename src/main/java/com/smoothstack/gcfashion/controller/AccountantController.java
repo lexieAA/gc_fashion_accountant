@@ -66,4 +66,22 @@ public class AccountantController {
 	public ResponseEntity<Report> getTotalTaxes() {
 		return new ResponseEntity<Report>(acctService.getTotalTaxes(), HttpStatus.OK);
 	}
+	
+	@CrossOrigin
+	@GetMapping("accountant/reports/salesperday")
+	public ResponseEntity<Report> getSalesPerDay() {
+		return new ResponseEntity<Report>(acctService.getAvgSales(), HttpStatus.OK);
+	}
+	
+	@CrossOrigin
+	@GetMapping("accountant/reports/salespertrans")
+	public ResponseEntity<Report> getSalesPerTrans() {
+		return new ResponseEntity<Report>(acctService.getAvgSalesTrans(), HttpStatus.OK);
+	}
+	
+	@CrossOrigin
+	@GetMapping("accountant/reports/volperloc")
+	public ResponseEntity<Report> getVolByLoc() {
+		return new ResponseEntity<Report>(acctService.getVolByLoc(), HttpStatus.OK);
+	}
 }
