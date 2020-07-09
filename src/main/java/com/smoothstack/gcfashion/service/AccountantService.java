@@ -1,17 +1,18 @@
 package com.smoothstack.gcfashion.service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.smoothstack.gcfashion.dao.UserDAO;
-import com.smoothstack.gcfashion.entity.SalesReport;
-import com.smoothstack.gcfashion.entity.TaxReport;
+import com.smoothstack.gcfashion.entity.DummyData;
+import com.smoothstack.gcfashion.entity.Report;
 import com.smoothstack.gcfashion.entity.User;
 
 public class AccountantService {
+	
+	DummyData d = new DummyData();
 
 	@Autowired
 	UserDAO uDAO;
@@ -25,12 +26,38 @@ public class AccountantService {
 		return "management".equals(user.getRole()) ? user : null;
 	};
 
-	public List<SalesReport> getSalesReport() {
-		return uDAO.getSalesReport().stream().map(r -> new SalesReport((String)r[0],(BigDecimal)r[1])).collect(Collectors.toList());
+	public Report getSalesReport() {
+		//return new Report("Sales by Location", uDAO.getSalesReport().stream().map(r -> new ReportElement((String)r[0],(BigDecimal)r[1])).collect(Collectors.toList()));
+		return d.getFakeSalesByLoc();
 	}
 
-	public List<TaxReport> getTaxReport() {
-		return uDAO.getTaxReport().stream().map(r -> new TaxReport((String)r[0],(BigDecimal)r[1])).collect(Collectors.toList());
+	public Report getTaxReport() {
+		//return new Report("Taxes by Location", uDAO.getTaxReport().stream().map(r -> new ReportElement((String)r[0],(BigDecimal)r[1])).collect(Collectors.toList()));
+		return d.getFakeTaxes();
 	}
-
+	
+	public Report getSalesByCat() {
+		//return new Report("Taxes by Location", uDAO.getSalesByCatReport().stream().map(r -> new ReportElement((String)r[0],(BigDecimal)r[1])).collect(Collectors.toList()));
+		return d.getFakeSalesByCat();		
+	}
+	
+	public Report getTotalSales() {
+		return d.getFakeTotalSales();		
+	}
+	
+	public Report getTotalTaxes() {
+		return d.getFakeTotalTaxes();		
+	}
+	
+	public Report getAvgSales() {
+		return d.getFakeSalesPerDay();
+	}
+	
+	public Report getAvgSalesTrans() {
+		return d.getFakeSalesPerTransaction();
+	}
+	
+	public Report getVolByLoc() {
+		return d.getFakeVolByLoc();
+	}
 }
