@@ -41,6 +41,10 @@ class GcFashionApplicationTests {
 	
 	@InjectMocks
 	AccountantService acctService;
+	
+	@Test
+	void contextLoads() {
+	}
 
 	@Test
 	public void testGetInvalidUser() {
