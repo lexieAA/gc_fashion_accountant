@@ -36,6 +36,15 @@ public class AccountantController {
 		User manager = acctService.findManagerById(userId);
 		return manager != null ? new ResponseEntity<User>(manager, HttpStatus.OK) : ResponseEntity.notFound().build();
 	}
+	
+	@CrossOrigin
+	@GetMapping("/accountant/report/{reportName}")
+	public ResponseEntity<String> getReport(@PathVariable String reportName) {
+		//User manager = acctService.getReport(reportName);
+		return new ResponseEntity<String>("", HttpStatus.OK);
+	}
+	
+	//=====================================//
 
 	@CrossOrigin
 	@GetMapping("accountant/reports/sales")

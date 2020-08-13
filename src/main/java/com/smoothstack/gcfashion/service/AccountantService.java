@@ -25,6 +25,10 @@ public class AccountantService {
 		User user = uDAO.findById(userId).orElse(null);
 		return "management".equals(user.getRole()) ? user : null;
 	};
+	
+	public void getReport(String reportName) {
+		
+	}
 
 	public Report getSalesReport() {
 		//return new Report("Sales by Location", uDAO.getSalesReport().stream().map(r -> new ReportElement((String)r[0],(BigDecimal)r[1])).collect(Collectors.toList()));
