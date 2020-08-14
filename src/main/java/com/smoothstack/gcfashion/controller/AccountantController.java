@@ -44,7 +44,7 @@ public class AccountantController {
 		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
 	
-	//=====================================// adding development branch
+	//=====================================// adding refactor branch
 
 	@CrossOrigin
 	@GetMapping("accountant/reports/sales")
