@@ -1,5 +1,7 @@
 package com.smoothstack.gcfashion.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.smoothstack.gcfashion.dao.UserDAO;
 import com.smoothstack.gcfashion.entity.DummyData;
 import com.smoothstack.gcfashion.entity.Report;
+import com.smoothstack.gcfashion.entity.ReportElement;
 import com.smoothstack.gcfashion.entity.User;
 
 public class AccountantService {
@@ -27,11 +30,31 @@ public class AccountantService {
 		return "management".equals(user.getRole()) ? user : null;
 	}
 	
-	public Report getReport(String reportName) {
-		return getSalesByCat();		
+	public Report getReport(String reportName, LocalDate startDate, LocalDate endDate) {
+		System.out.println(reportName +", "+startDate+", "+endDate);
+		switch(reportName.toLowerCase()) {
+		  case "salesbyloc":
+			  return getSalesByLoc();
+		  case "taxesbyloc":
+			  return getSalesByLoc();
+		  case "salesbycat":
+			  return getSalesByLoc();
+		  case "totalsales":
+			  return getSalesByLoc();
+		  case "totaltaxes":
+			  return getSalesByLoc();
+		  case "avgsales":
+			  return getSalesByLoc();
+		  case "salesbytransaction":
+			  return getSalesByLoc();
+		  case "volbyloc":
+			  return getSalesByLoc();
+		  default:
+			  return getBlankReport();		    
+		}
 	}
 
-	public Report getSalesReport() {
+	public Report getSalesByLoc() {
 		//return new Report("Sales by Location", uDAO.getSalesReport().stream().map(r -> new ReportElement((String)r[0],(BigDecimal)r[1])).collect(Collectors.toList()));
 		return d.getFakeSalesByLoc();
 	}
@@ -58,11 +81,15 @@ public class AccountantService {
 		return d.getFakeSalesPerDay();
 	}
 	
-	public Report getAvgSalesTrans() {
+	public Report getAvgSalesByTrans() {
 		return d.getFakeSalesPerTransaction();
 	}
 	
 	public Report getVolByLoc() {
 		return d.getFakeVolByLoc();
+	}
+	
+	public Report getBlankReport() {
+		return new Report("No Data", new ArrayList<ReportElement>());
 	}
 }

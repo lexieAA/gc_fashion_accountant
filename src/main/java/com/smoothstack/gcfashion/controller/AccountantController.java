@@ -1,7 +1,9 @@
 package com.smoothstack.gcfashion.controller;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.time.LocalDate;
+import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,6 +26,17 @@ public class AccountantController {
 
 	@Autowired
 	AccountantService acctService;
+
+	@CrossOrigin
+	@GetMapping("/report/{reportName}")
+	public ResponseEntity<Report> getReport(@PathVariable String reportName,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam Optional<LocalDate> startDate,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam Optional<LocalDate> endDate) {
+
+		return new ResponseEntity<Report>(acctService.getReport(reportName,
+				startDate.orElse(LocalDate.now().with(firstDayOfYear())), endDate.orElse(LocalDate.now())),
+				HttpStatus.OK);
+	}
 	
 	@CrossOrigin
 	@GetMapping("/accountant")
@@ -38,14 +51,6 @@ public class AccountantController {
 	public ResponseEntity<User> findManagerById(@PathVariable long userId) {
 		User manager = acctService.findManagerById(userId);
 		return manager != null ? new ResponseEntity<User>(manager, HttpStatus.OK) : ResponseEntity.notFound().build();
-	}
-
-	@CrossOrigin
-	@GetMapping("/report/{reportName}")
-	public ResponseEntity<Report> getReport(@PathVariable String reportName,
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("startDate") LocalDate startDate,
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("endDate") LocalDate endDate) {
-		return new ResponseEntity<Report>(acctService.getReport(reportName), HttpStatus.OK);
 	}
 
 }
