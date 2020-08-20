@@ -5,11 +5,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.smoothstack.gcfashion.dao.ReportSeriesDAO;
 import com.smoothstack.gcfashion.dao.UserDAO;
 import com.smoothstack.gcfashion.entity.DummyData;
 import com.smoothstack.gcfashion.entity.Report;
-import com.smoothstack.gcfashion.entity.ReportElement;
 import com.smoothstack.gcfashion.entity.User;
 
 public class AccountantService {
@@ -19,22 +17,18 @@ public class AccountantService {
 
 	@Autowired
 	UserDAO uDAO;
-	
-	@Autowired
-	ReportSeriesDAO rDAO;
 
 	public List<User> findAllManagers() {
 		return uDAO.findAll().stream().filter(user -> "management".equals(user.getRole())).collect(Collectors.toList());
-	};
-
+	}
+	
 	public User findManagerById(Long userId) {
 		User user = uDAO.findById(userId).orElse(null);
 		return "management".equals(user.getRole()) ? user : null;
-	};
+	}
 	
-	public List<ReportElement> getReport(String reportName) {
-		return rDAO.getSalesByCat();
-		
+	public Report getReport(String reportName) {
+		return getSalesByCat();		
 	}
 
 	public Report getSalesReport() {
