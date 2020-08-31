@@ -1,6 +1,5 @@
 package com.smoothstack.gcfashion.controller;
 
-import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
@@ -17,40 +16,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smoothstack.gcfashion.entity.Report;
-import com.smoothstack.gcfashion.entity.User;
-import com.smoothstack.gcfashion.service.AccountantService;
+import com.smoothstack.gcfashion.service.ReportService;
 
 @RestController
 @RequestMapping("/gcfashions")
 public class AccountantController {
 
 	@Autowired
-	AccountantService acctService;
-
-	@CrossOrigin
-	@GetMapping("/report/{reportName}")
-	public ResponseEntity<Report> getReport(@PathVariable String reportName,
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam Optional<LocalDate> startDate,
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam Optional<LocalDate> endDate) {
-
-		return new ResponseEntity<Report>(acctService.getReport(reportName,
-				startDate.orElse(LocalDate.now().with(firstDayOfYear())), endDate.orElse(LocalDate.now())),
-				HttpStatus.OK);
-	}
+	ReportService reportService;
 	
 	@CrossOrigin
-	@GetMapping("/accountant")
-	public ResponseEntity<List<User>> findAllManagers() {
-		List<User> managers = acctService.findAllManagers();
-		return managers != null && managers.size() > 0 ? new ResponseEntity<List<User>>(managers, HttpStatus.OK)
-				: ResponseEntity.notFound().build();
-	}
+	@GetMapping("/reports/{report}")
+	public ResponseEntity<Report> getReport(@PathVariable String report,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam Optional<LocalDate> startDate,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam Optional<LocalDate> endDate,
+			@RequestParam Optional<Boolean> isLiveData) {
 
-	@CrossOrigin
-	@GetMapping("/accountant/{userId}")
-	public ResponseEntity<User> findManagerById(@PathVariable long userId) {
-		User manager = acctService.findManagerById(userId);
-		return manager != null ? new ResponseEntity<User>(manager, HttpStatus.OK) : ResponseEntity.notFound().build();
+		LocalDate start = startDate.orElse(LocalDate.now().with(firstDayOfYear()));
+		LocalDate end = endDate.orElse(LocalDate.now());
+		Boolean isLive = isLiveData.orElse(true);
+
+		return new ResponseEntity<Report>(reportService.getReport(report, start, end, isLive), HttpStatus.OK);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.smoothstack.gcfashion.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,12 +9,18 @@ public class Report implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String reportName;
-	private List<ReportElement> reportData;
+	private List<ReportSeries> reportData;
 
-	public Report(String reportName, List<ReportElement> reportData) {
+	public Report(String reportName, List<ReportSeries> reportData) {
 		super();
 		this.reportName = reportName;
 		this.reportData = reportData;
+	}
+	
+	public Report(String reportName) {
+		super();
+		this.reportName = reportName;
+		this.reportData = new ArrayList<>();
 	}
 
 	public Report() {
@@ -28,14 +35,18 @@ public class Report implements Serializable {
 		this.reportName = reportName;
 	}
 
-	public List<ReportElement> getReportData() {
+	public List<ReportSeries> getReportData() {
 		return reportData;
 	}
 
-	public void setReportData(List<ReportElement> reportData) {
+	public void setReportData(List<ReportSeries> reportData) {
 		this.reportData = reportData;
 	}
-
+	
+	public void addSeries(ReportSeries series) {
+		this.reportData.add(series);
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(reportData, reportName);
