@@ -34,7 +34,7 @@ public class AccountantController {
 
 		LocalDate start = startDate.orElse(LocalDate.now().with(firstDayOfYear()));
 		LocalDate end = endDate.orElse(LocalDate.now());
-		Boolean isLive = isLiveData.orElse(true);
+		Boolean isLive = isLiveData.orElse(false);
 
 		return new ResponseEntity<Report>(reportService.getReport(report, start, end, isLive), HttpStatus.OK);
 	}
