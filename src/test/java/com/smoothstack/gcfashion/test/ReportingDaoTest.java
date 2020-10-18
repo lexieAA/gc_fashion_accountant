@@ -46,8 +46,11 @@ public class ReportingDaoTest {
 	public void mockQuery() {
 		Object[] arr1 = { "label1", BigDecimal.valueOf(1.10) };
 		Object[] arr2 = { "label2", BigDecimal.valueOf(2.20) };
+		List<Object> data = new ArrayList<Object>();
+		data.add(arr1);
+		data.add(arr2);
 		Query q = mock(Query.class);
-		when(q.getResultList()).thenReturn(List.of(arr1,arr2));
+		when(q.getResultList()).thenReturn(data);
 		when(q.setParameter(any(String.class), any(Object.class))).thenReturn(q);
 		when(this.reportingDAO.entityManager.createNativeQuery(any(String.class))).thenReturn(q);		
 	}
