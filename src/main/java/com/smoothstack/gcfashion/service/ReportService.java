@@ -105,19 +105,19 @@ public class ReportService {
 		case "salesbyloc":
 			return isLiveData ? getSalesByLoc(startDate, endDate) : samples.getFakeSalesByLoc();
 		case "taxesbyloc":
-			return isLiveData ? getTaxesByLoc(startDate, endDate) : samples.getFakeSalesByLoc();
+			return isLiveData ? getTaxesByLoc(startDate, endDate) : samples.getFakeTaxes();
 		case "salesbycat":
-			return isLiveData ? getSalesByCat(startDate, endDate) : samples.getFakeSalesByLoc();
+			return isLiveData ? getSalesByCat(startDate, endDate) : samples.getFakeSalesByCat();
 		case "totalsales":
-			return isLiveData ? getTotalSales(startDate, endDate) : samples.getFakeSalesByLoc();
+			return isLiveData ? getTotalSales(startDate, endDate) : samples.getFakeTotalSales();
 		case "totaltaxes":
-			return isLiveData ? getTotalTaxes(startDate, endDate) : samples.getFakeSalesByLoc();
+			return isLiveData ? getTotalTaxes(startDate, endDate) : samples.getFakeTotalTaxes();
 		case "avgsales":
-			return isLiveData ? getAvgSales(startDate, endDate) : samples.getFakeSalesByLoc();
+			return isLiveData ? getAvgSales(startDate, endDate) : samples.getFakeSalesPerDay();
 		case "salesbytransaction":
-			return isLiveData ? getSalesByTransaction(startDate, endDate) : samples.getFakeSalesByLoc();
+			return isLiveData ? getSalesByTransaction(startDate, endDate) : samples.getFakeSalesPerTransaction();
 		case "volbyloc":
-			return isLiveData ? getVolByLocation(startDate, endDate) : samples.getFakeSalesByLoc();
+			return isLiveData ? getVolByLocation(startDate, endDate) : samples.getFakeVolByLoc();
 		default:
 			return samples.getBlankReport();
 		}	
